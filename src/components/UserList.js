@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
+import "./Checkout.css";
 import Select from "react-select";
 import {
   selectedUser,
-  removeSelectedUser,
   sortUsers,
+  removeSelectedUser
 } from "../redux/store/actions/userActions";
+import UserDetails from './UserDetails'
+import Modal from "./Modal";
 
 const UserComponent = () => {
   const users = useSelector((state) => state.allUsers.users);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [toBeDeletedUser, setToBeDeletedUser] = useState(null);
   const selectedUsers = useSelector((state) => state.allUsers.selected);
+  const [modalVisible, setModalVisible] = useState(false)
+  const [toBeDeletedUser, setToBeDeletedUser] = useState(null);
+
+
   const dispatch = useDispatch();
-  // const [addresses, setAddresses] = useState([]);
-  // const [companies, setCompanies] = useState([]);
+
   const usersList = () => {
     return users?.map((user) => {
       return {
@@ -36,39 +40,27 @@ const UserComponent = () => {
   };
   console.log(users);
 
-  const confirmDeleteUser = () => {
-    dispatch(removeSelectedUser(toBeDeletedUser));
-    setModalVisible(false);
-  };
   const selectedUsersList = () => {
     return selectedUsers?.map((user) => {
       return (
         <div key={user.id}>
-          <div className='card'>
-            <div>{user.name}</div>
-            <div>Email: {user.email}</div>
-            <div>
-              Address: {user.street},{user.city}
-            </div>
-            <div>Phone: {user.phone}</div>
-            <div>Company: {user.company.name}</div>
-            <div>
-              <a href={user.website}>{user.website}</a>
-            </div>
-            <div key={user.id}>
-              <button
-                onClick={() => {
-                  setToBeDeletedUser(user);
-                  setModalVisible(true);
-                }}
-              >
-                Remove this user
-              </button>
-            </div>
-          </div>
+          <UserDetails
+            user={user} id={user?.id}
+            setModalVisible={setModalVisible}
+            setToBeDeletedUser={setToBeDeletedUser}
+          />
         </div>
       );
     });
+  };
+
+  // const openModalFunction = () => {
+  //   setModalVisible(true)
+  // }
+
+  const confirmDeleteUser = () => {
+    dispatch(removeSelectedUser(toBeDeletedUser));
+
   };
 
   return (
@@ -87,15 +79,8 @@ const UserComponent = () => {
           Sort by descending
         </button>
         <div className='container'>{selectedUsersList()}</div>
+        {modalVisible && <Modal user={toBeDeletedUser} closeModal={setModalVisible} removeUser={confirmDeleteUser} />}
       </div>
-      {modalVisible && (
-        <div className={"modal"}>
-          <p>Are you sure you want to delete user: {toBeDeletedUser?.name}?</p>
-
-          <button onClick={() => confirmDeleteUser()}>Yes</button>
-          <button onClick={() => setModalVisible(false)}>Cancel</button>
-        </div>
-      )}
     </>
   );
 };
