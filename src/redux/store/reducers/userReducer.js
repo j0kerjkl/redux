@@ -19,7 +19,8 @@ export const userReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         users: [...state.users, payload],
-        selected: state.selected.filter((x) => x.id !== payload.id),
+        selected: state.selected.filter((x, y) => x.id !== payload.id),
+
       };
     case ActionTypes.SORT_ASCENDING:
       return {

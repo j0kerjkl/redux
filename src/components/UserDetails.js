@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Checkout.css"
 
 export default function UserDetails({ user, setModalVisible, setToBeDeletedUser }) {
 
@@ -14,13 +14,12 @@ export default function UserDetails({ user, setModalVisible, setToBeDeletedUser 
             <h4 >Email: {user.email}</h4>
             <h4 >Address: {user.street},{user.city}</h4>
             <h4>Company: {user.company.name}</h4>
-            <a href={user.website}>{user.website}</a>
-            <div key={user.id}>
-              <button className="openModalBtn" onClick={() => {
+            <a href={`http://${user.website}`}>{user.website}</a>
+            <div className="removeBtn" key={user.id}>
+              <button className="ui inverted red button" onClick={() => {
                 setToBeDeletedUser(user)
                 setModalVisible(true)
-              }}>Remove</button>
-            </div>
+              }}>Remove</button>            </div>
           </div>
         </div>
       </div>

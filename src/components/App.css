@@ -1,7 +1,12 @@
-body{
-
+body {
+    justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+.mainTitle {
+    color: aliceblue;
+    justify-content: center;
 }
 
 .container {
@@ -12,7 +17,7 @@ body{
 
 .card {
     background: lightblue;
-    color: black;
+    color: rgb(255, 255, 255);
     padding: 30px;
     margin: 10px;
 }
@@ -23,4 +28,10 @@ body{
     background: gray;
     height: 100%;
     width: 100%;
+}
+
+.buttons-asc-dsc,
+select {
+    justify-content: center;
+    padding: 50px;
 }

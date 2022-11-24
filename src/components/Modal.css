@@ -16,10 +16,13 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 43px;
     position: absolute;
-    top: 10%;
-    left: 33%;
+    top: 25%;
+    bottom: 25%;
+    left: 37%;
+
+
 }
 
 .modalContainer .title {
@@ -33,15 +36,13 @@
     justify-content: flex-end;
 }
 
-.removeBtn {
-    padding: 5px;
-}
 
 .titleCloseBtn button {
     background-color: transparent;
     border: none;
     font-size: 25px;
     cursor: pointer;
+    color: crimson;
 }
 
 .modalContainer .body {

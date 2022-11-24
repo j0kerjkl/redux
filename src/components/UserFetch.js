@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import UserComponent from "./UserList";
 import axios from "axios";
 import { setUsers } from "../redux/store/actions/userActions";
 
 const UserList = () => {
-  const users = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const fethcingUsers = async () => {
@@ -21,7 +20,6 @@ const UserList = () => {
     fethcingUsers();
   }, []);
 
-  console.log("Users: ", users);
 
   return (
     <div>

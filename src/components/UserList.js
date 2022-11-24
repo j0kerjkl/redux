@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./App.css";
-import "./Checkout.css";
 import Select from "react-select";
 import {
   selectedUser,
@@ -38,7 +36,6 @@ const UserComponent = () => {
       };
     });
   };
-  console.log(users);
 
   const selectedUsersList = () => {
     return selectedUsers?.map((user) => {
@@ -54,30 +51,37 @@ const UserComponent = () => {
     });
   };
 
-  // const openModalFunction = () => {
-  //   setModalVisible(true)
-  // }
 
   const confirmDeleteUser = () => {
     dispatch(removeSelectedUser(toBeDeletedUser));
-
   };
 
   return (
     <>
       <div className='App'>
-        <Select
-          options={usersList()}
-          onChange={(e) => dispatch(selectedUser(e))}
-          controlShouldRenderValue={true}
-          hideSelectedOptions={true}
-        />
-        <button onClick={() => dispatch(sortUsers("asc"))}>
-          Sort by ascending
-        </button>
-        <button onClick={() => dispatch(sortUsers("dsc"))}>
-          Sort by descending
-        </button>
+        <h1 className="mainTitle">Choose a User!</h1>
+        <div className="select">
+          <Select
+
+            options={usersList()}
+            onChange={(e) => dispatch(selectedUser(e))}
+            controlShouldRenderValue={true}
+            hideSelectedOptions={true}
+            value={null}
+          />
+        </div>
+        <div className="buttons-asc-dsc" >
+          {selectedUsers.length !== 0 ?
+            <div>
+              <button className="ui inverted primary button" onClick={() => dispatch(sortUsers("asc"))}>
+                Sort by ascending
+              </button>
+              <button className="ui inverted primary button" onClick={() => dispatch(sortUsers("dsc"))}>
+                Sort by descending
+              </button>
+            </div>
+            : ""}
+        </div>
         <div className='container'>{selectedUsersList()}</div>
         {modalVisible && <Modal user={toBeDeletedUser} closeModal={setModalVisible} removeUser={confirmDeleteUser} />}
       </div>
